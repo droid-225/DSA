@@ -1,0 +1,81 @@
+#include <stdio.h>
+#include <ctype.h>
+
+#define MAX_SIZE 100
+int stack[MAX_SIZE];
+int top = -1;
+
+int isEmpty() {
+    return top == -1;
+}
+
+int isFull() {
+    return top == MAX_SIZE - 1;
+}
+
+void push(int val) {
+    if(isFull()) {
+        printf("Stack Overflow!\n");
+        return;
+    }
+    stack[top++] = val;
+}
+
+int pop() {
+    if(isEmpty()) {
+        printf("Stack Underflow!\n");
+        return 0;
+    }
+    return stack[top--];
+}
+
+int peep() {
+    if(isEmpty()) {
+        printf("Stack Empty!\n");
+        return 0;
+    }
+    return stack[top];
+}
+
+void change(int index, int val) {
+    stack[index] = val;
+}
+
+void display() {
+    int i;
+    for(i = 0; i < MAX_SIZE; i++) {
+        printf("%d ", stack[i]);
+    }
+    printf("\n");
+}
+
+void initInfix(char string[]) {
+    int i;
+    for(i = 0; string[i] != '\0'; i++) {
+        if(string[i] != ' ') {
+            push(string[i]);
+        }
+    }
+}
+
+void printPostfix() {
+    int i;
+    int n = top;
+    for(i = 0; i < n; i++) {
+        if(isalnum(stack[i])) {
+            printf("%c ", stack[i]);
+        }
+    }
+    for(i = 0; i < n; i++) {
+        if(stack[i] == '+' || stack[i] == '-' || stack[i] == '/' || stack[i] == '*') {
+            printf("%c ", stack[i]);
+        }
+    }
+}
+
+int main() {
+    char infix[MAX_SIZE] = "5+6";
+    initInfix(infix);
+    printPostfix();
+    return 0;
+}

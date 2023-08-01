@@ -15,7 +15,7 @@ int isFull() {
 void push(int val) {
     if(isFull()) {
         printf("Stack Overflow!\n");
-        return;
+        return 0;
     }
     stack[++top] = val;
 }
@@ -23,7 +23,7 @@ void push(int val) {
 int pop() {
     if(isEmpty()) {
         printf("Stack Underflow!\n");
-        return;
+        return 0;
     }
     return stack[top--];
 }
